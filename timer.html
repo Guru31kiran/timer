@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 20px;
+        }
+
+        .time-container {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .time-container h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .time-container p {
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            border-top: 5px solid #007bff;
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="countdown">
+        <div class="time-container">
+            <div class="circle" id="days-circle"></div>
+            <h1 id="days">00</h1>
+            <p>Days</p>
+        </div>
+        <div class="time-container">
+            <div class="circle" id="hours-circle"></div>
+            <h1 id="hours">00</h1>
+            <p>Hours</p>
+        </div>
+        <div class="time-container">
+            <div class="circle" id="minutes-circle"></div>
+            <h1 id="minutes">00</h1>
+            <p>Minutes</p>
+        </div>
+        <div class="time-container">
+            <div class="circle" id="seconds-circle"></div>
+            <h1 id="seconds">00</h1>
+            <p>Seconds</p>
+        </div>
+    </div>
+
+    <script>
+        
+        var countdownDate = new Date().getTime() + (14 * 24 * 60 * 60 * 1000) + (17 * 60 * 60 * 1000) + (5 * 60 * 1000) + (54 * 1000);
+
+    
+        var countdownFunction = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = countdownDate - now;
+
+            
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("minutes").innerHTML = "00";
+                document.getElementById("seconds").innerHTML = "00";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
